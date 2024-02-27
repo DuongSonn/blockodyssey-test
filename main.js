@@ -2,8 +2,10 @@
 
 const express = require("express");
 const { getConfigs } = require("./config/config");
-const { userControllers } = require("./controller");
 const loggerMiddleware = require("./middleware/logger.middleware");
+const bodyParser = require("body-parser");
+const { connectToDatabase } = require("./pkg/database/sqlite");
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -16,6 +18,7 @@ const db = connectToDatabase(configs.DATABASE_URL);
 app.use(loggerMiddleware);
 
 // Use the consolidated routes
+const userControllers = require("./controller/users/users.controller");
 app.use("/", userControllers(db));
 
 // Start the server
