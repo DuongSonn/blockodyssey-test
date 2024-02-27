@@ -11,6 +11,8 @@ const userControllers = (db) => {
   router.post("/users", createUserValidation, service.addUser);
   router.put("/users/:id", service.updateUserById);
   router.delete("/users/:id", service.deleteUserById);
+
+  return router;
 };
 
 module.exports = userControllers;
